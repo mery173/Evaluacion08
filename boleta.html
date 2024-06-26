@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/hoja02.css">
+    <title>Boleta de Ventas</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Boleta de Ventas</h1>
+        <img src="img/store.png" alt="Descripción de la imagen">
+        <label for="producto">Producto:</label>
+        <select id="producto" onchange="mostrarPrecio()">
+            <option value="">Seleccione un producto</option>
+            <option value="4.50">Arroz costeño 3/4 </option>
+            <option value="6.20">Azúcar paisana 1k </option>
+            <option value="1.20">Chocolate Donofrio </option>
+            <option value="12.50">Aceite primor premiun </option>
+        </select>
+        <label for="precio">Precio (S/):</label>
+        <input type="text" id="precio" readonly>
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" min="1">
+        <label for="descuento">Descuento (%):</label>
+        <input type="number" id="descuento" min="0" max="100" value="10" readonly>
+        <button onclick="calcular()">Calcular</button>
+        <button onclick="limpiar()">Limpiar</button>
+        <div id="resultado"></div>
+    </div>
+    <script>
+      function mostrarPrecio() {
+    const producto = document.getElementById('producto');
+    const precio = document.getElementById('precio');
+    const precioSeleccionado = producto.value;
+    precio.value = precioSeleccionado ? `S/ ${precioSeleccionado}` : '';
+}
+
+function calcular() {
+    const producto = document.getElementById('producto');
+    const cantidad = document.getElementById('cantidad').value;
+    const resultado = document.getElementById('resultado');
+    
+    if (!producto.value) {
+        resultado.textContent = 'Por favor, seleccione un producto.';
+        return;
+    }
+    
+    if (cantidad <= 0) {
+        resultado.textContent = 'La cantidad debe ser mayor a 0.';
+        return;
+    }
+    
+    const precio = parseFloat(producto.value);
+    const cantidadNum = parseInt(cantidad, 10);
+    const descuentoFijo = parseFloat(document.getElementById('descuento').value);
+    
+    const importeSoles = cantidadNum * precio - (cantidadNum * precio * descuentoFijo / 100);
+    const tipoCambio = 3.8;
+    const importeDolares = importeSoles / tipoCambio;
+    
+    resultado.innerHTML = `
+        <p>Importe en Soles (S/): ${importeSoles.toFixed(2)}</p>
+        <p>Importe en Dólares (US$): ${importeDolares.toFixed(2)}</p>
+    `;
+}
+
+function limpiar() {
+    document.getElementById('producto').value = '';
+    document.getElementById('precio').value = '';
+    document.getElementById('cantidad').value = '';
+    document.getElementById('resultado').innerHTML = '';
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evalucion</title>
+    <link rel="stylesheet" href="css/hoja01.css">
+    <h1>
+        <img width="300 px" src="img/certus.png" alt="">
+    </h1>
+</head>
+<body>
+    <div class="conta">
+        <h1 style="text-align:center ;" >Calculadora de Número</h1>
+        <h2><img src="img/caja.jpg" alt="">
+        </h2>
+        <input type="number" id="numero" placeholder="Ingrese un número">
+        <button onclick="calcular()">Calcular</button>
+        <button onclick="limpiar()">Limpiar</button>
+        <div id="resultado"></div>
+    </div>
+    <script>
+
+function calcular() {
+    const numero = document.getElementById('numero').value;
+    const resultado = document.getElementById('resultado');
+
+    if (numero === '') {
+        resultado.textContent = 'Por favor, ingrese un número.';
+        return;
+    }
+
+    const num = parseFloat(numero);
+
+    if (num === 0) {
+        resultado.textContent = ' El numero Cero es neutro';
+    } else if (num > 0) {
+        resultado.textContent = ' El numero es Positivo';
+    } else {
+        resultado.textContent = ' El numero es Negativo';
+    }
+}
+
+function limpiar() {
+    document.getElementById('numero').value = '';
+    document.getElementById('resultado').textContent = '';
+}
+
+    </script>
+</body>
+</html>
